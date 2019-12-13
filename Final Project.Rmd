@@ -427,3 +427,11 @@ indonesia_im_graph <- indonesia_im %>%
 ```
 
 
+```{r}
+full_data  %>% filter(year == 2010) %>% 
+  ggplot(aes(x = democracy, y = value)) + geom_point() + 
+  geom_jitter(height = 0.2, width = 0.2) +
+  geom_smooth(method = "lm", se = FALSE) + xlim("0", "1") + labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)")
+```
+
+
