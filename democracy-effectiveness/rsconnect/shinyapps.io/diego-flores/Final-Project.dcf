@@ -5,8 +5,8 @@ account: diego-flores
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1514720
-bundleId: 2639588
+bundleId: 2664281
 url: https://diego-flores.shinyapps.io/Final-Project/
-when: 1575451111.70782
+when: 1576213480.54503
 asMultiple: FALSE
 asStatic: FALSE
