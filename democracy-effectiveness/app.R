@@ -15,18 +15,30 @@ regime <- read_rds("regime_type.rds")
 dense <- read_rds("world_density.rds")
 pop<- read_rds("world_pop.rds")
 
+# So here I simply read in all my data that I had cleaned and prepped in the prep.R file. Saved them as rds files
+# and then read them in using red_rds.
+
 ui <- fluidPage(theme = shinytheme("superhero"),
                 
                 # Thi creates the aesthetic theme I put using the shinythemes package
                 
                 navbarPage("Effects of Democracy Around the World (Is Democracy the Best Form of Government?)",
                            
+                           #This creates the main title of my project
+                           
                            tabPanel("Democracy Growth",
+                                    
+                                    #So this created the first tab on which people will open the project with.
+                                    
                                     h2("Make-up of Governments in the World"),
                                     selectInput("plot1", label = h5("Select Plot"), 
                                                 choices = list("Democracy" = "democracy_line",
                                                                "Autocracy" = "autocracy_line",
                                                                "Democracy + Autocracy" = "both_line"), 
+                                                # Here i created a drop down interactive graph, I couldn't find  
+                                                # way to insert a legend to the graph, this kind of makes up for it and makes
+                                                # it more fun and visual as well
+                                                
                                                 selected =  "Democracy + Autocracy",
                                                 multiple = FALSE,
                                                 selectize = FALSE,
@@ -63,13 +75,20 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                     h3("About Me"),
                                     p("My name is Diego Flores. I am a first-year from the Bronx, New York on track to concentrate in 
                           Government although that is subject to change."),
-                                    p("Github: https://github.com/dieflores2123")
-                                    ),
+                                    p("Github: https://github.com/dieflores2123"),
+                                    
+                                    tags$iframe(width="560", height="315", src="https://www.youtube.com/watch?v=w4_t_EHhl0s", frameborder="0", allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", allowfullscreen=NA)
                            
-                           #This creates title and main oage of my final project
+                                    
+                                    #I embedded my video here too
+                           ),
                            
                            tabPanel("Democracy & GDP",
+                                    
+                                    #this makes the tab in which I focus on individual countries and their time with gdp
+                                    
                                     p("Select from the box to see a country's GDP growth in relation with democracy."),
+                                    p("The blue line represents the installation of democracy in the country"),
                                     selectInput("plot2", label = h5("Select Plot"), 
                                                 choices = list("Afghanistan" = "afhganistan_gdp",
                                                                "Indonesia" = "indonesia_gdp",
@@ -92,10 +111,17 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                       helps GDP growth."),
                                     p("A regression analysis will be required in order to fully analyze this relationship and judge if it is 
                                       causal or not.")
+                                    
+                                    # here I created another drop-down I am making a lot of these
+                                    
                            ),
                            
                            tabPanel("Life Expectancy",
+                                    
+                                    #new tabe with other variable, and below this is also the new drop down for this analysis as well
+                                    
                                     p("Select from the list to see a country's life expectancy in relation to the introduction of democracy."),
+                                    p("The blue line represents the installation of democracy in the country"),
                                     selectInput("plot3", label = h5("Select Plot"), 
                                                 choices = list("Afghanistan" = "afhgani_le",
                                                                "Sweden" = "sweden_le",
@@ -120,7 +146,12 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                            ), 
                            
                            tabPanel("Human Development Index (HDI)",
+                                    
+                                    #new tab again with another drop down, with these drop downs, I choose countries that are
+                                    #more easy to follow to show trends and such
+                                    
                                     p("Select from the list to see a country's HDI in relation to the introduction of democracy."),
+                                    p("The blue line represents the installation of democracy in the country"),
                                     selectInput("plot4", label = h5("Select Plot"), 
                                                 choices = list("Afghanistan" = "afhganistan_hdi",
                                                                "Indonesia" = "indonesia_hdi",
@@ -143,6 +174,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                            
                            tabPanel("Happiness",
                                     p("Select from the list to see a country's happiness rating in relation to the introduction of democracy."),
+                                    p("The blue line represents the installation of democracy in the country"),
                                     selectInput("plot5", label = h5("Select Plot"), 
                                                 choices = list("Tunisia" = "tunisia_h",
                                                                "Nigeria" = "nigeria_h", 
@@ -182,6 +214,9 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                               size = 1),
                                   plotOutput("dem_im"),
                                   
+                                  #This tells the computer where in the server the code is for the output, it is
+                                  #like a label to keep track of the graphics I am making
+                                  
                                   
                                   h3("Analysis"),
                                   p("The overall happiness rating for all of these countries appears to be dependant on more than the factor of 
@@ -199,10 +234,8 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                     # Sidebar panel for inputs ----
                                     sidebarPanel(
                                       
-                                      # Input: Select the random distribution type ----
                                       
-                                      
-                                      # Input: Slider for the number of observations to generate ----
+                                      # Input: Slider for the year to generate data for ----
                                       sliderInput("year",
                                                   "Year for Observations:",
                                                   value = 2010,
@@ -215,7 +248,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                     # Main panel for displaying outputs ----
                                     mainPanel(
                                       
-                                      # Output: Tabset w/ plot, summary, and table ----
+                                      # Output: all five variables and a conclusions page ----
                                       tabsetPanel(type = "tabs",
                                                   tabPanel("GDP", 
                                                            plotOutput("plot7"),
@@ -243,16 +276,17 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                                              society as a whole, and should not be attributed to any political system. This is great, to know that IM rate has always been on 
                                                              a general downward trend")),
                                                   tabPanel("Conclusions",
-                                                           p("It is pretty clear from our regressions that in the larger picture, the presence of democracy does have an effect
-                                                             on variables that we attribute to the prosperity of a society. However, our specific analyses of singular countries
-                                                             before and after they became democratic lead me to believe that the adoption of democracy itself is not the sole
-                                                             factor at play that affects these variables. Many of the countries that are not democratic simply never have been nor have they tried 
-                                                             to be democratic. As a result it can be suggested that perhaps the countries we analysed already had systems in place that allowed
-                                                             democracy to be implemented. Perhaps these bettered conditions reflected in the regressions were not because of democracy, but maybe they were
-                                                             the conditions necessary for democracy to grow. This suggestsion echoes theories such as that of Lipset's theory of modernization where he
-                                                             claims that economic development is the breeding ground for democracy along with improved conditions of survival. That being said however,
-                                                             it must be acknowledged that democratic countries, based off of this analysis have overall better conditions of living, thus making them
-                                                             better and easier places to live."))
+                                                           p("It is clear from our regressions that in the larger picture, the presence of democracy does influence variables that we attribute 
+                                                             to the prosperity of a society. However, our specific analyses of singular countries before and after they became democratic lead me
+                                                             to believe that the adoption of democracy itself is not the sole factor at play that affects these variables. Many of the countries
+                                                             that are not democratic simply never have been nor have they tried to be democratic. As a result, it can be suggested that perhaps
+                                                             the countries we analyzed already had systems in place that allowed democracy to be implemented. Perhaps these bettered conditions 
+                                                             reflected in the regressions were not because of democracy, but maybe they were the conditions necessary for democracy to grow. 
+                                                             This suggestion echoes theories such as that of Lipsett's theory of modernization where he claims that economic development is the
+                                                             breeding ground for democracy along with improved conditions of survival. That being said however, it must be acknowledged that 
+                                                             democratic countries, based off of this analysis have overall better conditions of living, thus making them better and easier places 
+                                                             to live. In relation to our original question for the project, our findings in the regression analysis suggest that democracy may 
+                                                             in fact be a superior form of government "))
                                       )
                                       
                                     )
@@ -264,9 +298,17 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                     ))
                 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+  
+  # So this server is the brains of the shiny app, it tells it what functions to run
+  # how to make the many graphics and where to find them
 
   output$demGrowth <- renderPlot({  
+    
+    #I made this output a dropdown so I used if then statements to make the plot based on the input that the
+    # user makes. It was super tedious to make all of thesee, but I could not write a function for them
+    # because I had to find when the countries democratized to make the lines
+    
     if(input$plot1 == "democracy_line") {
       ggplot(full) + 
         geom_line(data = dem_growth, aes(x = year, y = democracies), 
@@ -295,6 +337,9 @@ server <- function(input, output) {
   })
   
   output$dem_gdp <- renderPlot({
+    
+    #Once again a drop down menu and graphics relating to each option, very similar to the last one
+    
     if(input$plot2 == "afhganistan_gdp") {
       
      afg_gdp <- gdp %>%
@@ -407,6 +452,11 @@ server <- function(input, output) {
   
   
   output$dem_le <- renderPlot({
+    
+    #Ditto to my last two comments, but also forgot to mention that the part that says output$dem_le tells
+    #the server where exactly this code will line up in the shiny app, they are kind of like flags to 
+    # make sure everything is put where it is supposed to be.
+    
     if(input$plot3 == "afhgani_le") {
       afg_le <- expectancy %>%
         filter(entity == "Afghanistan")
@@ -523,6 +573,9 @@ server <- function(input, output) {
 
   
   output$dem_hdi <- renderPlot({
+    
+    #Ditto to the last four comments
+    
     if(input$plot4 == "afhganistan_hdi") {
       afg_hdi <- hdi_score %>%
         filter(entity == "Afghanistan")
@@ -605,6 +658,9 @@ server <- function(input, output) {
   
   output$dem_hap <- renderPlot({
     if(input$plot5 == "tunisia_h") {
+      
+      #Dittooooo 
+      
       tun_h <- happiness %>%
         filter(entity == "Tunisia")
       tun_h  %>% 
@@ -790,14 +846,14 @@ server <- function(input, output) {
     full %>% filter(year == year) %>% 
       ggplot(aes(x = democracy, y = value)) + geom_point() + 
       geom_jitter(height = 0.2, width = 0.2) +
-      geom_smooth(method = "lm", se = FALSE)  + labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)") +
+      geom_smooth(method = "lm", se = FALSE)  + labs(y = "GDP Per Cap", x = "Non-Democratic (0) or Democratic (1)") +
       ggtitle("GDP per Capita of Democratic vs Non-Democratic Countries")
     
     
 
   })
   
-  # Generate a summary of the data ----
+
   output$plot8 <- renderPlot({
     year <- input$year
     full %>% filter(year == year) %>% 
@@ -809,22 +865,29 @@ server <- function(input, output) {
     
   })
   
-  # Generate an HTML table view of the data ----
+
   output$plot9 <- renderPlot({
     year <- input$year
     full %>% filter(year == year) %>% 
       ggplot(aes(x = democracy, y = hdi)) + geom_point() + 
       geom_jitter(height = 0.2, width = 0.2) +
-      geom_smooth(method = "lm", se = FALSE)  + labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)") +
+      geom_smooth(method = "lm", se = FALSE)  + labs(y = "HDI Score", x = "Non-Democratic (0) or Democratic (1)") +
       ggtitle("HDI of Democratic vs Non-Democratic Countries")
   })
   
   output$plot10 <- renderPlot({
+    
+    # so this code for the last analysis tab allowed me to make new tabs within the tab and a slider menu
+    # the slider was nicely easy, i assigned the slider input to a vriable and simply inputted the variable
+    # into the code of the graphics that I was making in this cse it was assigned to "year"
+    # I then made a plot for each tab and that was that. It was pretty straight forward. The graphics could be made
+    # in the shiny app because I had loaded in the data
+    
     year <- input$year
     full %>% filter(year == year) %>% 
       ggplot(aes(x = democracy, y = cantril_score)) + geom_point() + 
       geom_jitter(height = 0.2, width = 0.2) +
-      geom_smooth(method = "lm", se = FALSE)  + labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)")+
+      geom_smooth(method = "lm", se = FALSE)  + labs(y = "Cantril Score", x = "Non-Democratic (0) or Democratic (1)")+
       ggtitle("Happiness of Democratic vs Non-Democratic Countries")
   })
   output$plot11 <- renderPlot({
@@ -837,5 +900,7 @@ server <- function(input, output) {
 
   })
 }
-  
+ #The end
+
+
 shinyApp(ui = ui, server = server)

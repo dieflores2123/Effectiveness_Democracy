@@ -401,7 +401,6 @@ nepal_happiness_graph <- nepal_happiness %>%
   theme_gray() +
   geom_vline(xintercept = 2008, color = "blue")
 
-pakistan_happiness
 ```
 
 ```{r, infant mortality}
@@ -427,11 +426,42 @@ indonesia_im_graph <- indonesia_im %>%
 ```
 
 
-```{r}
+```{r regression analysis}
 full_data  %>% filter(year == 2010) %>% 
   ggplot(aes(x = democracy, y = value)) + geom_point() + 
   geom_jitter(height = 0.2, width = 0.2) +
-  geom_smooth(method = "lm", se = FALSE) + xlim("0", "1") + labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)")
+  geom_smooth(method = "lm", se = FALSE) + 
+  labs(y = "GDP per Capita", x = "Non-Democratic (0) or Democratic (1)") +
+  ggtitle("GDP per Cap of Democratic vs Non-Democratic Countries")
+
+full_data %>% filter(year == 2010) %>% 
+      ggplot(aes(x = democracy, y = expectancy)) + geom_point() + 
+      geom_jitter(height = 0.2, width = 0.2) +
+      geom_smooth(method = "lm", se = FALSE)  + 
+      labs(y = "Life Expectancy", x = "Non-Democratic (0) or Democratic (1)") +
+      ggtitle("Life Expectancy of Democratic vs Non-Democratic Countries")
+
+full_data %>% filter(year == 2010) %>% 
+      ggplot(aes(x = democracy, y = hdi)) + geom_point() + 
+      geom_jitter(height = 0.2, width = 0.2) +
+      geom_smooth(method = "lm", se = FALSE)  + 
+      labs(y = "HDI Score", x = "Non-Democratic (0) or Democratic (1)") +
+      ggtitle("HDI of Democratic vs Non-Democratic Countries")
+
+full_data %>% filter(year == 2010) %>% 
+      ggplot(aes(x = democracy, y = cantril_score)) + geom_point() + 
+      geom_jitter(height = 0.2, width = 0.2) +
+      geom_smooth(method = "lm", se = FALSE)  + 
+      labs(y = "Cantril Score", x = "Non-Democratic (0) or Democratic (1)") +
+      ggtitle("Happiness of Democratic vs Non-Democratic Countries")
+
+
+full_data %>% filter(year == 2010) %>% 
+      ggplot(aes(x = democracy, y = rate)) + geom_point() + 
+      geom_jitter(height = 0.2, width = 0.2) +
+      geom_smooth(method = "lm", se = FALSE)  + 
+  labs(y = "Value", x = "Non-Democratic (0) or Democratic (1)") +
+      ggtitle("Infant Mortality Rates of Democratic vs Non-Democratic Countries")
 ```
 
 

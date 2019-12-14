@@ -5,8 +5,8 @@ account: diego-flores
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1598288
-bundleId: 2666496
+bundleId: 2666826
 url: https://diego-flores.shinyapps.io/democracy-effectiveness/
-when: 1576280799.57534
+when: 1576295764.74424
 asMultiple: FALSE
 asStatic: FALSE
