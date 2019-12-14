@@ -76,9 +76,11 @@ ui <- fluidPage(theme = shinytheme("superhero"),
                                     p("My name is Diego Flores. I am a first-year from the Bronx, New York on track to concentrate in 
                           Government although that is subject to change."),
                                     p("Github: https://github.com/dieflores2123"),
+                                    p("Link to video: https://www.youtube.com/watch?v=w4_t_EHhl0s"),
+                                    HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/watch?v=w4_t_EHhl0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
                                     
-                                    tags$iframe(width="560", height="315", src="https://www.youtube.com/watch?v=w4_t_EHhl0s", frameborder="0", allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", allowfullscreen=NA)
-                           
+                                    
+                      
                                     
                                     #I embedded my video here too
                            ),
@@ -903,4 +905,4 @@ server <- function(input, output, session) {
  #The end
 
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)
